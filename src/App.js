@@ -10,7 +10,7 @@ const App = () => {
     <Router>
       <Switch>
         <Route exact path='/' render={Home} />
-        <Route exact path='/login-signup' render={Login} />
+        <Route exact path='/login' render={Login} />
         <Route exact path='/chat' render={Chat} />
       </Switch>
     </Router>
