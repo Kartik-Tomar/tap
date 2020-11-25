@@ -1,0 +1,53 @@
+#sidebar-wrapper {
+  min-height: 100vh;
+  margin-left: -15rem;
+  -webkit-transition: margin 0.25s ease-out;
+  -moz-transition: margin 0.25s ease-out;
+  -o-transition: margin 0.25s ease-out;
+  transition: margin 0.25s ease-out;
+}
+
+#sidebar-wrapper .sidebar-heading {
+  padding: 0.875rem 1.25rem;
+  font-size: 1.2rem;
+  min-height: 7vh;
+  cursor: pointer;
+}
+
+#my-name {
+  color: white;
+}
+
+#sidebar-wrapper .list-group {
+  width: 15rem;
+  max-height: 93vh;
+}
+
+.list-group-item {
+  cursor: pointer;
+}
+
+.list-group-item:hover {
+  background-color: black !important;
+  .profile-pic {
+    background-color: black;
+  }
+  .profile-name {
+    background-color: black;
+  }
+}
+
+#my-profile {
+  height: 4vh;
+  margin-right: 15px;
+}
+
+.profile-pic {
+  height: 3vh;
+  margin-right: 15px;
+}
+
+.list-group-item {
+  color: #e2e2e2 !important;
+  background: #2b2b2b !important;
+}

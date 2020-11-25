@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Button,
@@ -10,7 +10,9 @@ import {
   Row,
   Col,
 } from 'reactstrap';
+
 import OffLineHeader from '../../components/Header/OffLineHeader';
+import googleSigninButton from '../../assets/img/google-signin.svg';
 
 const inputStyle = {
   background: 'none',
@@ -24,33 +26,30 @@ const inputStyle = {
 };
 
 const Home = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <Container fluid>
       <OffLineHeader />
       <Row className='justify-content-md-center mt-5'>
         <Col xs='12'>
-          <h1 className='text-center'>Sign up</h1>
+          <h1 className='text-center'>Login</h1>
         </Col>
         <Col xs='12'>
           <p className='text-center'>
-            Already have an Account?{' '}
-            <Link to='/login' style={{ color: '#d3d3d3' }}>
-              Login here
+            Do not have an Account?{' '}
+            <Link to='/signup' style={{ color: '#d3d3d3' }}>
+              Sign up here
             </Link>
           </p>
         </Col>
         <Col md='6'>
-          <Form>
-            <FormGroup>
-              <Label for='inputName'>Name</Label>
-              <Input
-                type='name'
-                name='name'
-                id='inputName'
-                placeholder='Enter your name'
-                style={inputStyle}
-              />
-            </FormGroup>
+          <Form onSubmit={handleSubmit}>
             <FormGroup>
               <Label for='inputEmail'>Email</Label>
               <Input
@@ -58,7 +57,10 @@ const Home = () => {
                 name='email'
                 id='inputEmail'
                 placeholder='Enter your Email-id'
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
                 style={inputStyle}
+                required
               />
             </FormGroup>
             <FormGroup>
@@ -68,21 +70,24 @@ const Home = () => {
                 name='password'
                 id='inputPassword'
                 placeholder='Enter Your Password'
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
                 style={inputStyle}
+                required
               />
             </FormGroup>
-            <FormGroup>
-              <Label for='inputConfirmPassword'>Confirm Password</Label>
-              <Input
-                type='confirmPassword'
-                name='confirmPassword'
-                id='inputConfirmPassword'
-                placeholder='Enter Password again'
-                style={inputStyle}
-              />
-            </FormGroup>
-            <Button>Submit</Button>
+            <div className='text-center'>
+              <Button color='primary' size='lg' className='px-5'>
+                Login
+              </Button>
+            </div>
           </Form>
+        </Col>
+        <Col xs='12' className='text-center mb-3'>
+          <p className='my-2'>or</p>
+          <Button className='p-0' style={{ border: 'none' }}>
+            <img src={googleSigninButton} alt='google sign up button' />
+          </Button>
         </Col>
       </Row>
     </Container>

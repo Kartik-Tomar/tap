@@ -2,16 +2,18 @@ import React from 'react';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 
 import Home from './pages/Home/Home';
-import Login from './pages/Login/Login';
+import SignUp from './pages/SignUp/SignUp';
 import Chat from './pages/Chat/Chat';
+
+import './app.scss';
 
 const App = () => {
   return (
     <Router>
       <Switch>
-        <Route exact path='/' render={Home} />
-        <Route exact path='/login' render={Login} />
-        <Route exact path='/chat' render={Chat} />
+        <Route exact path='/' component={Home} />
+        <Route exact path='/signup' component={SignUp} />
+        <Route exact path='/chat' component={Chat} />
       </Switch>
     </Router>
   );
