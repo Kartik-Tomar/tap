@@ -1,6 +1,8 @@
 import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
 
+import TypeArea from '../TypeArea/TypeArea';
+
 import './chat-area.scss';
 
 const ChatArea = () => {
@@ -11,7 +13,7 @@ const ChatArea = () => {
           <Col xs='12'>
             <ul
               className='chat-list overflow-auto scroll-bar'
-              style={{ maxHeight: '86vh' }}
+              style={{ maxHeight: '80vh' }}
             >
               <li className='in'>
                 <div className='chat-body'>
@@ -303,6 +305,9 @@ const ChatArea = () => {
               </li>
             </ul>
           </Col>
+        </Row>
+        <Row class='text-row'>
+          <TypeArea />
         </Row>
       </Container>
     </>

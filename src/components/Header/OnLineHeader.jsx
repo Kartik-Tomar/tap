@@ -14,8 +14,6 @@ import {
 import ProfileIcon from '../../assets/img/man.svg';
 import MyProfileIcon from '../../assets/img/profile.svg';
 
-import './online-header.scss';
-
 const OnLineHeader = (props) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
