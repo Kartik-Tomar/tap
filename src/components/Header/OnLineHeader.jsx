@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRight, ArrowLeft } from 'react-feather';
+import { Menu, X } from 'react-feather';
 import {
   Navbar,
   Nav,
@@ -23,7 +23,7 @@ const OnLineHeader = (props) => {
   return (
     <Navbar expand='md' className='on-nav'>
       <span onClick={() => props.setSideBar(!props.sideBar)} className='arrow'>
-        {props.sideBar ? <ArrowLeft /> : <ArrowRight />}
+        {props.sideBar ? <X /> : <Menu />}
       </span>
       <Nav className='mr-auto' navbar>
         <NavItem>
