@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Button,
@@ -10,7 +10,11 @@ import {
   Row,
   Col,
 } from 'reactstrap';
+import { withRouter } from 'react-router-dom';
 
+import { AuthContext } from '../../firebase/Auth';
+import firebase from '../../firebase/firebase';
+import Loader from '../../assets/loader/Loader';
 import OffLineHeader from '../../components/Header/OffLineHeader';
 import googleSignupButton from '../../assets/img/google-signup.svg';
 
@@ -25,13 +29,22 @@ const inputStyle = {
   color: 'inherit',
 };
 
-const SignUp = () => {
+const SignUp = (props) => {
+  const { currentUser } = useContext(AuthContext);
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (currentUser !== null) {
+      props.history.push('/chat');
+    }
+  }, [currentUser]);
 
   useEffect(() => {
     if (password !== confirmPassword) {
@@ -41,6 +54,21 @@ const SignUp = () => {
     }
   }, [confirmPassword]);
 
+  const loginWithGoogle = () => {
+    setLoading(true);
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+      });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password.length < 6) {
@@ -48,6 +76,7 @@ const SignUp = () => {
     } else {
       setPasswordError(null);
       if (!confirmPasswordError) {
+        setLoading(true);
       }
     }
   };
@@ -135,22 +164,34 @@ const SignUp = () => {
                 ''
               )}
             </FormGroup>
-            <div className='text-center'>
-              <Button color='primary' size='lg' className='px-5'>
-                Sign Up
-              </Button>
-            </div>
+            {loading ? (
+              <div className='mt-5'>
+                <Loader size='10px' />
+              </div>
+            ) : (
+              <div className='text-center'>
+                <Button color='primary' size='lg' className='px-5'>
+                  Sign Up
+                </Button>
+              </div>
+            )}
           </Form>
         </Col>
-        <Col xs='12' className='text-center mb-3'>
-          <p className='my-2'>or</p>
-          <Button className='p-0' style={{ border: 'none' }}>
-            <img src={googleSignupButton} alt='google sign up button' />
-          </Button>
-        </Col>
+        {!loading && (
+          <Col xs='12' className='text-center mb-3'>
+            <p className='my-2'>or</p>
+            <Button
+              className='p-0'
+              style={{ border: 'none' }}
+              onClick={() => loginWithGoogle()}
+            >
+              <img src={googleSignupButton} alt='google sign up button' />
+            </Button>
+          </Col>
+        )}
       </Row>
     </Container>
   );
 };
 
-export default SignUp;
+export default withRouter(SignUp);

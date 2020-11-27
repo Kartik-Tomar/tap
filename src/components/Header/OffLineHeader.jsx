@@ -8,7 +8,7 @@ import letterP from '../../assets/img/p.png';
 
 const OffLineHeader = () => {
   return (
-    <Row className='my-2'>
+    <Row className='my-4'>
       <Col xs='12' className='text-center'>
         <Link to='/' style={{ textDecoration: 'none', color: '#d3d3d3' }}>
           <img src={logo} alt='logo' style={{ height: '70px' }} />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Menu, X } from 'react-feather';
 import {
   Navbar,
@@ -10,12 +10,23 @@ import {
   DropdownMenu,
   DropdownItem,
 } from 'reactstrap';
+import { withRouter } from 'react-router-dom';
 
+import { AuthContext } from '../../firebase/Auth';
+import firebase from '../../firebase/firebase';
 import ProfileIcon from '../../assets/img/man.svg';
 import MyProfileIcon from '../../assets/img/profile.svg';
 
 const OnLineHeader = (props) => {
+  const { currentUser } = useContext(AuthContext);
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    if (currentUser === null) {
+      props.history.push('/');
+    }
+  }, [currentUser]);
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
   return (
@@ -54,7 +65,9 @@ const OnLineHeader = (props) => {
           <DropdownMenu>
             <DropdownItem disabled>My Profile</DropdownItem>
             <DropdownItem divider />
-            <DropdownItem>Logout</DropdownItem>
+            <DropdownItem onClick={() => firebase.auth().signOut()}>
+              Logout
+            </DropdownItem>
           </DropdownMenu>
         </Dropdown>
       </NavbarText>
@@ -62,4 +75,4 @@ const OnLineHeader = (props) => {
   );
 };
 
-export default OnLineHeader;
+export default withRouter(OnLineHeader);

@@ -1,36 +1,37 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import {
-  Button,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  Container,
-  Row,
-  Col,
-} from 'reactstrap';
+import React, { useState, useEffect, useContext } from 'react';
+import { Button, Container, Row, Col } from 'reactstrap';
+import { withRouter } from 'react-router-dom';
 
+import { AuthContext } from '../../firebase/Auth';
+import firebase from '../../firebase/firebase';
+import Loader from '../../assets/loader/Loader';
 import OffLineHeader from '../../components/Header/OffLineHeader';
 import googleSigninButton from '../../assets/img/google-signin.svg';
 
-const inputStyle = {
-  background: 'none',
-  backgroundColor: 'none',
-  border: 'none',
-  borderBottom: '1px solid #434a52',
-  borderRadius: '0',
-  boxShadow: 'none',
-  outline: 'none',
-  color: 'inherit',
-};
+const Home = (props) => {
+  const { currentUser } = useContext(AuthContext);
 
-const Home = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    if (currentUser !== null) {
+      props.history.push('/chat');
+    }
+  }, [currentUser]);
+
+  const loginWithGoogle = () => {
+    setLoading(true);
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+      });
   };
 
   return (
@@ -38,60 +39,41 @@ const Home = () => {
       <OffLineHeader />
       <Row className='justify-content-md-center mt-5'>
         <Col xs='12'>
-          <h1 className='text-center'>Login</h1>
+          <h2 className='text-center'>Login / Sign Up</h2>
         </Col>
         <Col xs='12'>
-          <p className='text-center'>
-            Do not have an Account?{' '}
-            <Link to='/signup' style={{ color: '#d3d3d3' }}>
-              Sign up here
-            </Link>
-          </p>
+          <p className='text-center'>Login to start messaging now !!!</p>
         </Col>
-        <Col md='6'>
-          <Form onSubmit={handleSubmit}>
-            <FormGroup>
-              <Label for='inputEmail'>Email</Label>
-              <Input
-                type='email'
-                name='email'
-                id='inputEmail'
-                placeholder='Enter your Email-id'
-                onChange={(e) => setEmail(e.target.value)}
-                value={email}
-                style={inputStyle}
-                required
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for='inputPassword'>Password</Label>
-              <Input
-                type='password'
-                name='password'
-                id='inputPassword'
-                placeholder='Enter Your Password'
-                onChange={(e) => setPassword(e.target.value)}
-                value={password}
-                style={inputStyle}
-                required
-              />
-            </FormGroup>
-            <div className='text-center'>
-              <Button color='primary' size='lg' className='px-5'>
-                Login
-              </Button>
-            </div>
-          </Form>
-        </Col>
-        <Col xs='12' className='text-center mb-3'>
-          <p className='my-2'>or</p>
-          <Button className='p-0' style={{ border: 'none' }}>
-            <img src={googleSigninButton} alt='google sign up button' />
-          </Button>
-        </Col>
+        {!loading ? (
+          <Col xs='12' className='text-center my-3'>
+            <Button
+              className='p-0'
+              style={{ border: 'none' }}
+              onClick={() => loginWithGoogle()}
+            >
+              <img src={googleSigninButton} alt='google sign up button' />
+            </Button>
+          </Col>
+        ) : (
+          <Col xs='12' className='my-3 text-center '>
+            <Loader size='10px' />
+          </Col>
+        )}
       </Row>
+      <footer
+        className='footer'
+        style={{
+          position: 'fixed',
+          left: '49%',
+          bottom: '-8px',
+          transform: 'translate(-50%, -50%)',
+          margin: '0 auto',
+        }}
+      >
+        <h5 className='text-center my-2'>© All right Reversed</h5>
+      </footer>
     </Container>
   );
 };
 
-export default Home;
+export default withRouter(Home);
