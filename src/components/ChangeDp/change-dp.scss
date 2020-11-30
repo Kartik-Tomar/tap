@@ -1,0 +1,32 @@
+.image-preview {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  left: 50%;
+  border: 2px solid #dddddd;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-file-upload {
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  background-color: #f25a3c;
+  color: white;
+  border-radius: 5px;
+}
+
+.custom-file-upload:hover {
+  background-color: #eb3410;
+}
+
+.Toastify__toast-container {
+  background: none;
+}
+
+input[type='file'] {
+  display: none;
+}

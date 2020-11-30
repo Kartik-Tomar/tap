@@ -1,0 +1,45 @@
+.dp-container {
+  position: relative;
+}
+.dp {
+  border-radius: 50%;
+  height: 150px;
+  width: 150px;
+  object-fit: cover;
+}
+
+.dp-container .dp-edit-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #5555557d;
+  color: white;
+  font-size: 16px;
+  padding: 52px 64px;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.dp-container .dp-edit-btn:hover {
+  background-color: #555555de;
+}
+
+.dp-container .dp-edit-btn h2 {
+  background: none;
+}
+
+svg {
+  background: none;
+}
+
+.name-input {
+  background: none;
+  border: none;
+  border-bottom: 1px solid #434a52;
+  border-radius: 0;
+  box-shadow: none;
+  outline: none;
+  color: inherit;
+}

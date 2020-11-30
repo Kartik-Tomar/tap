@@ -63,7 +63,9 @@ const OnLineHeader = (props) => {
             />
           </DropdownToggle>
           <DropdownMenu>
-            <DropdownItem disabled>My Profile</DropdownItem>
+            <DropdownItem onClick={() => props.history.push('/my-profile')}>
+              My Profile
+            </DropdownItem>
             <DropdownItem divider />
             <DropdownItem onClick={() => firebase.auth().signOut()}>
               Logout

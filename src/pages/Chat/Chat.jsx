@@ -9,7 +9,7 @@ import './simple-sidebar.css';
 const Chat = () => {
   const [sideBar, setSideBar] = useState(false);
   return (
-    <div class={sideBar ? 'd-flex toggled' : 'd-flex'} id='wrapper'>
+    <div className={sideBar ? 'd-flex toggled' : 'd-flex'} id='wrapper'>
       <Sidebar />
       <div id='page-content-wrapper'>
         <OnLineHeader setSideBar={setSideBar} sideBar={sideBar} />

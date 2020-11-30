@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Button, Container, Row, Col } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import { AuthContext } from '../../firebase/Auth';
 import firebase from '../../firebase/firebase';
@@ -28,8 +29,10 @@ const Home = (props) => {
       .then((result) => {
         console.log(result);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        toast.error(err + '', {
+          autoClose: false,
+        });
         setLoading(false);
       });
   };

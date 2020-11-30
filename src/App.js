@@ -1,22 +1,22 @@
 import React from 'react';
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { toast } from 'react-toastify';
 
+import store from './redux/store';
 import { AuthProvider } from './firebase/Auth';
-import Home from './pages/Home/Home';
-import Chat from './pages/Chat/Chat';
+import Routes from './Routes';
 
+import 'react-toastify/dist/ReactToastify.css';
 import './app.scss';
 
+toast.configure();
 const App = () => {
   return (
-    <AuthProvider>
-      <Router>
-        <Switch>
-          <Route exact path='/' component={Home} />
-          <Route exact path='/chat' component={Chat} />
-        </Switch>
-      </Router>
-    </AuthProvider>
+    <Provider store={store}>
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
+    </Provider>
   );
 };
 

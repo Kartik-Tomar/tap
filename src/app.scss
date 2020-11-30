@@ -1,2 +1,20 @@
 $primary: #f25a3c;
 @import '~bootstrap/scss/bootstrap';
+
+.modal {
+  background: none;
+}
+
+.modal-dialog {
+  top: 50%;
+  transform: translate(0%, -50%) !important;
+}
+
+.modal-content {
+  background: none;
+}
+
+.Toastify__toast-body {
+  background: none;
+  color: white;
+}
