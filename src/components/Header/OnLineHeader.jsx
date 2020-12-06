@@ -28,7 +28,7 @@ const OnLineHeader = (props) => {
     if (currentUser === null) {
       props.history.push('/');
     }
-  }, [currentUser]);
+  }, [currentUser, props.history]);
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
   return (

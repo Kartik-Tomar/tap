@@ -18,7 +18,7 @@ const Home = (props) => {
     if (currentUser !== null) {
       props.history.push('/chat');
     }
-  }, [currentUser]);
+  }, [currentUser, props.history]);
 
   const loginWithGoogle = () => {
     setLoading(true);

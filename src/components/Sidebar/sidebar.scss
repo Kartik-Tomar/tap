@@ -53,7 +53,10 @@ b {
 
 .profile-pic {
   height: 3vh;
+  width: 3vh;
   margin-right: 15px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .list-group-item {

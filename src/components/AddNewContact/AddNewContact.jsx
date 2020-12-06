@@ -12,8 +12,8 @@ import {
 import { UserPlus } from 'react-feather';
 import { Search } from 'react-feather';
 
-import { searchUser } from '../../redux/actions/contact';
-import Loader from '../../assets/loader/Loader';
+import { searchUser } from '../../redux/actions/contacts';
+// import Loader from '../../assets/loader/Loader';
 
 import './add-new-contact.scss';
 
@@ -21,7 +21,7 @@ const AddNewContact = () => {
   const dispatch = useDispatch();
   const [searchValue, setSearchValue] = useState('');
   const [modal, setModal] = useState(false);
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const toggle = () => {
     setModal(!modal);
   };

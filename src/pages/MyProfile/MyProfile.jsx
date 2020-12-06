@@ -14,7 +14,7 @@ import ChangeDp from '../../components/ChangeDp/ChangeDp';
 
 import './my-profile.scss';
 
-const SignUp = (props) => {
+const MyProfile = (props) => {
   const { currentUser } = useContext(AuthContext);
   const dispatch = useDispatch();
 
@@ -29,7 +29,7 @@ const SignUp = (props) => {
     if (currentUser === null) {
       props.history.push('/');
     }
-  }, [currentUser]);
+  }, [currentUser, props.history]);
 
   const changeName = (e) => {
     e.preventDefault();
@@ -160,4 +160,4 @@ const SignUp = (props) => {
   );
 };
 
-export default withRouter(SignUp);
+export default withRouter(MyProfile);
