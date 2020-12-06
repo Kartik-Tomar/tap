@@ -27,7 +27,9 @@ const Home = (props) => {
       .auth()
       .signInWithPopup(provider)
       .then((result) => {
-        console.log(result);
+        toast.success('Logged In', {
+          autoClose: true,
+        });
       })
       .catch((err) => {
         toast.error(err + '', {

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import AddNewContact from '../AddNewContact/AddNewContact'
+
 import ProfileIcon from '../../assets/img/man.svg';
 import logo from '../../assets/img/logo.png';
 import letterA from '../../assets/img/a.png';
@@ -19,8 +21,6 @@ const Sidebar = () => {
           className='mx-2'
         />
         <img src={letterP} alt='letterP' style={{ height: '35px' }} />
-        {/* <img src={ProfileIcon} alt='profile pic' id='my-profile' />
-        <b id='my-name'>Kartik Tomar</b> */}
       </div>
       <div className='list-group list-group-flush overflow-auto scroll-bar'>
         <div className='list-group-item list-group-item-action'>
@@ -31,7 +31,7 @@ const Sidebar = () => {
           <img src={ProfileIcon} alt='profile pic' className='profile-pic' />
           <b className='profile-name'>Somebody Else</b>
         </div>
-        <div className='list-group-item list-group-item-action'>
+        {/* <div className='list-group-item list-group-item-action'>
           <img src={ProfileIcon} alt='profile pic' className='profile-pic' />
           <b className='profile-name'>Somebody Else</b>
         </div>
@@ -162,8 +162,9 @@ const Sidebar = () => {
         <div className='list-group-item list-group-item-action'>
           <img src={ProfileIcon} alt='profile pic' className='profile-pic' />
           <b className='profile-name'>Somebody Else</b>
-        </div>
+        </div> */}
       </div>
+      <AddNewContact/>
     </div>
   );
 };

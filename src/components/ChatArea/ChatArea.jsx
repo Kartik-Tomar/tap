@@ -306,7 +306,7 @@ const ChatArea = () => {
             </ul>
           </Col>
         </Row>
-        <Row className='text-row'>
+        <Row className='text-row pt-2'>
           <TypeArea />
         </Row>
       </Container>

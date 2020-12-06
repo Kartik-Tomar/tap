@@ -1,4 +1,5 @@
 import firebase from '../../firebase/firebase';
+import { creatRoomWithAdmin } from './rooms';
 
 export const setProfile = (data) => (dispatch) => {
   return new Promise((resolve, reject) => {
@@ -41,7 +42,10 @@ const creatProfile = (data) => (dispatch) => {
       .ref()
       .child(`users/${data.uid}/profile`)
       .update(setData)
-      .then(() => resolve(setData))
+      .then(() => {
+        dispatch(creatRoomWithAdmin(data));
+        resolve(setData);
+      })
       .catch((err) => reject(err));
   });
 };
