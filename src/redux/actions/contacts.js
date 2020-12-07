@@ -38,6 +38,7 @@ export const subscribeToContactList = (id) => (dispatch) => {
     });
 };
 
+// Search user to add new contact
 export const searchUser = (data) => (dispatch) => {
   console.log(data.email);
   return new Promise((resolve, reject) => {

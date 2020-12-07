@@ -21,6 +21,7 @@ import MyProfileIcon from '../../assets/img/profile.svg';
 const OnLineHeader = (props) => {
   const { currentUser } = useContext(AuthContext);
   const myProfile = useSelector((state) => state.myProfile);
+  const contactData = useSelector((state) => state.currentRoom.contactData);
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -37,20 +38,25 @@ const OnLineHeader = (props) => {
         {props.sideBar ? <X /> : <Menu />}
       </span>
       <Nav className='mr-auto' navbar>
-        <NavItem>
-          <div>
-            <img
-              src={ProfileIcon}
-              alt='profile pic'
-              style={{
-                height: '30px',
-                marginRight: '10px',
-                marginLeft: '10px',
-              }}
-            />
-            <b>Somebody Else</b>
-          </div>
-        </NavItem>
+        {contactData && (
+          <NavItem>
+            <div>
+              <img
+                src={contactData.dp ? contactData.dp : ProfileIcon}
+                alt='profile pic'
+                style={{
+                  height: '30px',
+                  width: '30px',
+                  borderRadius: '50%',
+                  objectFit: 'cover',
+                  marginRight: '10px',
+                  marginLeft: '10px',
+                }}
+              />
+              <b>{contactData.name ? contactData.name : 'Random User'}</b>
+            </div>
+          </NavItem>
+        )}
       </Nav>
 
       <NavbarText>
