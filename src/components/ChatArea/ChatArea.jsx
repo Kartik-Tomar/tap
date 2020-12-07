@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Container, Row, Col } from 'reactstrap';
 import { toast } from 'react-toastify';
+import { animateScroll } from 'react-scroll';
 
+import Message from './Message';
 import Loader from '../../assets/loader/Loader';
 import { getMessages } from '../../redux/actions/rooms';
 import TypeArea from '../TypeArea/TypeArea';
@@ -29,6 +31,21 @@ const ChatArea = () => {
         });
     }
   }, [currentRoom.roomId]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [currentRoom.messages]);
+
+  const getMessageSendBy = (from) => {
+    if (from === currentRoom.from) return 'in';
+    else return 'out';
+  };
+
+  const scrollToBottom = () => {
+    animateScroll.scrollToBottom({
+      containerId: 'ContainerElementID',
+    });
+  };
 
   return (
     <Container fluid>
@@ -57,303 +74,23 @@ const ChatArea = () => {
           <Col xs='12'>
             <ul
               className='chat-list overflow-auto scroll-bar'
-              style={{ maxHeight: '80vh' }}
+              id='ContainerElementID'
+              style={{ maxHeight: '80vh', minHeight: '80vh' }}
             >
-              <li className='in'>
-                <div className='chat-body'>
-                  <div className='chat-message'>
-                    <p>Raw denim heard of them tofu master cleanse</p>
-                    <small>02:33 pm</small>
-                  </div>
-                </div>
-              </li>
-              <li className='out'>
-                <div className='chat-body'>
-                  <div className='chat-message'>
-                    <p>Next level veard</p>
-                    <small>02:33 pm</small>
-                  </div>
-                </div>
-              </li>
-              <li className='in'>
-                <div className='chat-body'>
-                  <div className='chat-message'>
-                    <p>Will stumptown scenes coffee viral.</p>
-                    <small>02:34 pm</small>
-                  </div>
-                </div>
-              </li>
-              <li className='out'>
-                <div className='chat-body'>
-                  <div className='chat-message'>
-                    <p>Tofu master best deal</p>
-                    <small>02:35 pm</small>
-                  </div>
-                </div>
-              </li>
-              <li className='in'>
-                <div className='chat-body'>
-                  <div className='chat-message'>
-                    <p>Raw denim heard of them tofu master cleanse</p>
-                    <small>02:33 pm</small>
-                  </div>
-                </div>
-              </li>
-              <li className='out'>
-                <div className='chat-body'>
-                  <div className='chat-message'>
-                    <p>Next level veard</p>
-                    <small>02:33 pm</small>
-                  </div>
-                </div>
-              </li>
-              <li className='in'>
-                <div className='chat-body'>
-                  <div className='chat-message'>
-                    <p>Will stumptown scenes coffee viral.</p>
-                    <small>02:34 pm</small>
-                  </div>
-                </div>
-              </li>
-              <li className='out'>
-                <div className='chat-body'>
-                  <div className='chat-message'>
-                    <p>Tofu master best deal</p>
-                    <small>02:35 pm</small>
-                  </div>
-                </div>
-              </li>
-              <li className='in'>
-                <div className='chat-body'>
-                  <div className='chat-message'>
-                    <p>Raw denim heard of them tofu master cleanse</p>
-                    <small>02:33 pm</small>
-                  </div>
-                </div>
-              </li>
-              <li className='out'>
-                <div className='chat-body'>
-                  <div className='chat-message'>
-                    <p>Next level veard</p>
-                    <small>02:33 pm</small>
-                  </div>
-                </div>
-              </li>
-              <li className='in'>
-                <div className='chat-body'>
-                  <div className='chat-message'>
-                    <p>Will stumptown scenes coffee viral.</p>
-                    <small>02:34 pm</small>
-                  </div>
-                </div>
-              </li>
-              <li className='out'>
-                <div className='chat-body'>
-                  <div className='chat-message'>
-                    <p>Tofu master best deal</p>
-                    <small>02:35 pm</small>
-                  </div>
-                </div>
-              </li>
-              <li className='in'>
-                <div className='chat-body'>
-                  <div className='chat-message'>
-                    <p>Raw denim heard of them tofu master cleanse</p>
-                    <small>02:33 pm</small>
-                  </div>
-                </div>
-              </li>
-              <li className='out'>
-                <div className='chat-body'>
-                  <div className='chat-message'>
-                    <p>Next level veard</p>
-                    <small>02:33 pm</small>
-                  </div>
-                </div>
-              </li>
-              <li className='in'>
-                <div className='chat-body'>
-                  <div className='chat-message'>
-                    <p>Will stumptown scenes coffee viral.</p>
-                    <small>02:34 pm</small>
-                  </div>
-                </div>
-              </li>
-              <li className='out'>
-                <div className='chat-body'>
-                  <div className='chat-message'>
-                    <p>Tofu master best deal</p>
-                    <small>02:35 pm</small>
-                  </div>
-                </div>
-              </li>
-              <li className='in'>
-                <div className='chat-body'>
-                  <div className='chat-message'>
-                    <p>Raw denim heard of them tofu master cleanse</p>
-                    <small>02:33 pm</small>
-                  </div>
-                </div>
-              </li>
-              <li className='out'>
-                <div className='chat-body'>
-                  <div className='chat-message'>
-                    <p>Next level veard</p>
-                    <small>02:33 pm</small>
-                  </div>
-                </div>
-              </li>
-              <li className='in'>
-                <div className='chat-body'>
-                  <div className='chat-message'>
-                    <p>Will stumptown scenes coffee viral.</p>
-                    <small>02:34 pm</small>
-                  </div>
-                </div>
-              </li>
-              <li className='out'>
-                <div className='chat-body'>
-                  <div className='chat-message'>
-                    <p>Tofu master best deal</p>
-                    <small>02:35 pm</small>
-                  </div>
-                </div>
-              </li>
-              <li className='in'>
-                <div className='chat-body'>
-                  <div className='chat-message'>
-                    <p>Raw denim heard of them tofu master cleanse</p>
-                    <small>02:33 pm</small>
-                  </div>
-                </div>
-              </li>
-              <li className='out'>
-                <div className='chat-body'>
-                  <div className='chat-message'>
-                    <p>Next level veard</p>
-                    <small>02:33 pm</small>
-                  </div>
-                </div>
-              </li>
-              <li className='in'>
-                <div className='chat-body'>
-                  <div className='chat-message'>
-                    <p>Will stumptown scenes coffee viral.</p>
-                    <small>02:34 pm</small>
-                  </div>
-                </div>
-              </li>
-              <li className='out'>
-                <div className='chat-body'>
-                  <div className='chat-message'>
-                    <p>Tofu master best deal</p>
-                    <small>02:35 pm</small>
-                  </div>
-                </div>
-              </li>
-              <li className='in'>
-                <div className='chat-body'>
-                  <div className='chat-message'>
-                    <p>Raw denim heard of them tofu master cleanse</p>
-                    <small>02:33 pm</small>
-                  </div>
-                </div>
-              </li>
-              <li className='out'>
-                <div className='chat-body'>
-                  <div className='chat-message'>
-                    <p>Next level veard</p>
-                    <small>02:33 pm</small>
-                  </div>
-                </div>
-              </li>
-              <li className='in'>
-                <div className='chat-body'>
-                  <div className='chat-message'>
-                    <p>Will stumptown scenes coffee viral.</p>
-                    <small>02:34 pm</small>
-                  </div>
-                </div>
-              </li>
-              <li className='out'>
-                <div className='chat-body'>
-                  <div className='chat-message'>
-                    <p>Tofu master best deal</p>
-                    <small>02:35 pm</small>
-                  </div>
-                </div>
-              </li>
-              <li className='in'>
-                <div className='chat-body'>
-                  <div className='chat-message'>
-                    <p>Raw denim heard of them tofu master cleanse</p>
-                    <small>02:33 pm</small>
-                  </div>
-                </div>
-              </li>
-              <li className='out'>
-                <div className='chat-body'>
-                  <div className='chat-message'>
-                    <p>Next level veard</p>
-                    <small>02:33 pm</small>
-                  </div>
-                </div>
-              </li>
-              <li className='in'>
-                <div className='chat-body'>
-                  <div className='chat-message'>
-                    <p>Will stumptown scenes coffee viral.</p>
-                    <small>02:34 pm</small>
-                  </div>
-                </div>
-              </li>
-              <li className='out'>
-                <div className='chat-body'>
-                  <div className='chat-message'>
-                    <p>Tofu master best deal</p>
-                    <small>02:35 pm</small>
-                  </div>
-                </div>
-              </li>
-              <li className='in'>
-                <div className='chat-body'>
-                  <div className='chat-message'>
-                    <p>Raw denim heard of them tofu master cleanse</p>
-                    <small>02:33 pm</small>
-                  </div>
-                </div>
-              </li>
-              <li className='out'>
-                <div className='chat-body'>
-                  <div className='chat-message'>
-                    <p>Next level veard</p>
-                    <small>02:33 pm</small>
-                  </div>
-                </div>
-              </li>
-              <li className='in'>
-                <div className='chat-body'>
-                  <div className='chat-message'>
-                    <p>Will stumptown scenes coffee viral.</p>
-                    <small>02:34 pm</small>
-                  </div>
-                </div>
-              </li>
-              <li className='out'>
-                <div className='chat-body'>
-                  <div className='chat-message'>
-                    <p>Tofu master best deal</p>
-                    <small>02:35 pm</small>
-                  </div>
-                </div>
-              </li>
+              {Object.keys(currentRoom.messages).map((keyName, i) => (
+                <Message
+                  by={getMessageSendBy(currentRoom.messages[keyName].from)}
+                  message={currentRoom.messages[keyName]}
+                  key={keyName}
+                />
+              ))}
             </ul>
           </Col>
         </Row>
       )}
       {currentRoom.roomId && !isLoading ? (
         <Row className='text-row pt-2'>
-          <TypeArea />
+          <TypeArea roomId={currentRoom.roomId} from={currentRoom.from} />
         </Row>
       ) : (
         ''

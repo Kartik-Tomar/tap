@@ -43,3 +43,16 @@ export const getMessages = (roomId) => (dispatch) => {
       });
   });
 };
+
+// send Message
+export const sendMessage = (data, roomId) => (dispatch) => {
+  return new Promise((resolve, reject) => {
+    firebase
+      .database()
+      .ref()
+      .child(`${rooms}/${roomId}/messages`)
+      .push(data)
+      .then(() => resolve())
+      .catch((err) => reject(err));
+  });
+};

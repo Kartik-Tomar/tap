@@ -22,6 +22,7 @@ const OnLineHeader = (props) => {
   const { currentUser } = useContext(AuthContext);
   const myProfile = useSelector((state) => state.myProfile);
   const contactData = useSelector((state) => state.currentRoom.contactData);
+  const contactId = useSelector((state) => state.currentRoom.contactId);
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -30,6 +31,12 @@ const OnLineHeader = (props) => {
       props.history.push('/');
     }
   }, [currentUser, props.history]);
+
+  useEffect(() => {
+    if (contactId) {
+      props.setSideBar(false);
+    }
+  }, [contactId]);
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
   return (
