@@ -38,6 +38,32 @@ export const subscribeToContactList = (id) => (dispatch) => {
     });
 };
 
+// Change status to false for notification in contacts
+export const seenMessage = (data) => (dispatch) => {
+  return new Promise((resolve, reject) => {
+    firebase
+      .database()
+      .ref()
+      .child(`${users}/${data.myId}/myContacts/${data.fromId}`)
+      .update({ notification: false })
+      .then(() => resolve())
+      .catch((err) => reject(err));
+  });
+};
+
+// Change status to false for notification in contacts
+export const notSeenMessage = (data) => (dispatch) => {
+  return new Promise((resolve, reject) => {
+    firebase
+      .database()
+      .ref()
+      .child(`${users}/${data.fromId}/myContacts/${data.myId}`)
+      .update({ notification: true })
+      .then(() => resolve())
+      .catch((err) => reject(err));
+  });
+};
+
 // Search user to add new contact
 export const searchUser = (data) => (dispatch) => {
   console.log(data.email);

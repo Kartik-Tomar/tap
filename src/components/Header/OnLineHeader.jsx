@@ -41,7 +41,11 @@ const OnLineHeader = (props) => {
   const toggle = () => setDropdownOpen((prevState) => !prevState);
   return (
     <Navbar expand='md' className='on-nav'>
-      <span onClick={() => props.setSideBar(!props.sideBar)} className='arrow'>
+      <span
+        onClick={() => props.setSideBar(!props.sideBar)}
+        className='arrow'
+        style={{ cursor: 'pointer' }}
+      >
         {props.sideBar ? <X /> : <Menu />}
       </span>
       <Nav className='mr-auto' navbar>

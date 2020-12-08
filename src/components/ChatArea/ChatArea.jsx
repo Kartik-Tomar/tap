@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Container, Row, Col } from 'reactstrap';
 import { toast } from 'react-toastify';
 import { animateScroll } from 'react-scroll';
 
+import { AuthContext } from '../../firebase/Auth';
 import Message from './Message';
 import Loader from '../../assets/loader/Loader';
 import { getMessages } from '../../redux/actions/rooms';
+import { seenMessage } from '../../redux/actions/contacts';
 import TypeArea from '../TypeArea/TypeArea';
 
 import './chat-area.scss';
@@ -14,6 +16,7 @@ import './chat-area.scss';
 let scrollNo = 0;
 
 const ChatArea = () => {
+  const { currentUser } = useContext(AuthContext);
   const dispatch = useDispatch();
 
   const currentRoom = useSelector((state) => state.currentRoom);
@@ -24,7 +27,15 @@ const ChatArea = () => {
     if (currentRoom.roomId) {
       setIsLoading(true);
       dispatch(getMessages(currentRoom.roomId))
-        .then(() => setIsLoading(false))
+        .then(() => {
+          dispatch(
+            seenMessage({
+              myId: currentUser.uid,
+              fromId: currentRoom.contactId,
+            })
+          );
+          setIsLoading(false);
+        })
         .catch((err) => {
           toast.error(err + '', {
             autoClose: false,
@@ -42,6 +53,14 @@ const ChatArea = () => {
   useEffect(() => {
     scrollToBottom();
     scrollNo = 0;
+    if (currentUser.uid && currentRoom.contactId) {
+      dispatch(
+        seenMessage({
+          myId: currentUser.uid,
+          fromId: currentRoom.contactId,
+        })
+      );
+    }
   }, [currentRoom.messages]);
 
   const getMessageSendBy = (from) => {
@@ -100,7 +119,11 @@ const ChatArea = () => {
       )}
       {currentRoom.roomId && !isLoading ? (
         <Row className='text-row pt-2'>
-          <TypeArea roomId={currentRoom.roomId} from={currentRoom.from} />
+          <TypeArea
+            roomId={currentRoom.roomId}
+            from={currentRoom.from}
+            fromId={currentRoom.contactId}
+          />
         </Row>
       ) : (
         ''

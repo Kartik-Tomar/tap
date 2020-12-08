@@ -10,7 +10,7 @@ const ProfileModal = (props) => {
   };
   return (
     <>
-      <div onClick={() => setModal(true)}>
+      <div onClick={() => setModal(true)} style={{ cursor: 'pointer' }}>
         <img
           src={props.profile.dp ? props.profile.dp : ProfileIcon}
           alt='profile pic'

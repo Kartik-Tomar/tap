@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Bell } from 'react-feather';
 
 import { AuthContext } from '../../firebase/Auth';
 import { SET_CURRENT_ROOM } from '../../utils';
@@ -40,10 +41,13 @@ const ContactTab = (props) => {
     <div
       className={
         contactId === props.userId
-          ? 'list-group-item-selected list-group-item-action'
-          : 'list-group-item list-group-item-action'
+          ? 'list-group-item-selected list-group-item-action mb-1'
+          : 'list-group-item list-group-item-action mb-1'
       }
       onClick={changeRoom}
+      style={{
+        border: props.roomData.notification ? '2px solid #f25a3c' : 'none',
+      }}
     >
       <img
         src={userData ? userData.dp : ProfileIcon}
@@ -51,6 +55,11 @@ const ContactTab = (props) => {
         className='profile-pic'
       />
       <b className='profile-name'>{userData ? userData.name : 'Random User'}</b>
+      {props.roomData.notification && (
+        <button className='notification-bell'>
+          <Bell style={{ padding: '3px' }} />
+        </button>
+      )}
     </div>
   );
 };

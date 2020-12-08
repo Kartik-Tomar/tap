@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { Col, FormGroup, Input } from 'reactstrap';
 import { Smile, Paperclip } from 'react-feather';
 import { toast } from 'react-toastify';
 import moment from 'moment';
 
+import { AuthContext } from '../../firebase/Auth';
 import SendIcon from '../../assets/img/send-mail.svg';
 import { sendMessage } from '../../redux/actions/rooms';
 
@@ -20,6 +21,7 @@ const inputStyle = {
 };
 
 const TypeArea = (props) => {
+  const { currentUser } = useContext(AuthContext);
   const dispatch = useDispatch();
   const [text, setText] = useState('');
 
@@ -31,8 +33,12 @@ const TypeArea = (props) => {
         from: props.from === 'user1' ? 'user2' : 'user1',
         sendAt: moment().unix(),
       };
+      let data2 = {
+        myId: currentUser.uid,
+        fromId: props.fromId,
+      };
       setText('');
-      dispatch(sendMessage(data, props.roomId)).catch((err) =>
+      dispatch(sendMessage(data, props.roomId, data2)).catch((err) =>
         toast.error(err + '', {
           autoClose: false,
         })

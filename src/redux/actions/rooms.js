@@ -1,6 +1,6 @@
 import firebase from '../../firebase/firebase';
 import { adminId, rooms, SET_MESSAGES } from '../../utils';
-import { addContactToUser } from './contacts';
+import { addContactToUser, notSeenMessage } from './contacts';
 
 // Create default room with admin after the profile is created
 export const creatRoomWithAdmin = (data) => (dispatch) => {
@@ -46,14 +46,19 @@ export const getMessages = (roomId) => (dispatch) => {
 };
 
 // send Message
-export const sendMessage = (data, roomId) => (dispatch) => {
+export const sendMessage = (data, roomId, data2) => (dispatch) => {
   return new Promise((resolve, reject) => {
     firebase
       .database()
       .ref()
       .child(`${rooms}/${roomId}/messages`)
       .push(data)
-      .then(() => resolve())
+      .then(() => {
+        if (data2) {
+          dispatch(notSeenMessage(data2));
+        }
+        resolve();
+      })
       .catch((err) => reject(err));
   });
 };
