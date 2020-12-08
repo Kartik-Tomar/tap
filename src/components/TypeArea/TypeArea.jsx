@@ -31,14 +31,12 @@ const TypeArea = (props) => {
         from: props.from === 'user1' ? 'user2' : 'user1',
         sendAt: moment().unix(),
       };
-      dispatch(sendMessage(data, props.roomId))
-        .then(() => setText(''))
-        .catch((err) => {
-          setText('');
-          toast.error(err + '', {
-            autoClose: false,
-          });
-        });
+      setText('');
+      dispatch(sendMessage(data, props.roomId)).catch((err) =>
+        toast.error(err + '', {
+          autoClose: false,
+        })
+      );
     }
   };
 
@@ -49,7 +47,7 @@ const TypeArea = (props) => {
   };
 
   return (
-    <form style={{ width: '100%' }} onSubmit={handleSubmit}>
+    <form style={{ width: '100%' }} onSubmit={handleSubmit} autocomplete='off'>
       <Col
         xs='1'
         className='my-auto text-center d-inline-block'
@@ -60,6 +58,7 @@ const TypeArea = (props) => {
       <Col md='9' sm='8' xs='8' className='text-center d-inline-block'>
         <FormGroup style={{ marginBottom: '0px' }}>
           <Input
+            autocomplete='Hi'
             type='text'
             name='text'
             id='inputText'

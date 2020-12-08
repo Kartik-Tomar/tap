@@ -45,10 +45,11 @@ const ChatArea = () => {
     animateScroll.scrollToBottom({
       containerId: 'ContainerElementID',
     });
+    window.scrollTo(0, document.body.scrollHeight);
   };
 
   return (
-    <Container fluid>
+    <Container fluid style={{ marginTop: '75px', marginBottom: '75px' }}>
       {isLoading ? (
         <Row className='text-center no-room'>
           <Col>
@@ -75,7 +76,7 @@ const ChatArea = () => {
             <ul
               className='chat-list overflow-auto scroll-bar'
               id='ContainerElementID'
-              style={{ maxHeight: '80vh', minHeight: '80vh' }}
+              style={{ height: '79vh' }}
             >
               {Object.keys(currentRoom.messages).map((keyName, i) => (
                 <Message
