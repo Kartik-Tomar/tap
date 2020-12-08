@@ -1,5 +1,5 @@
 import firebase from '../../firebase/firebase';
-import { adminId, rooms, SET_CURRENT_ROOM } from '../../utils';
+import { adminId, rooms, SET_MESSAGES } from '../../utils';
 import { addContactToUser } from './contacts';
 
 // Create default room with admin after the profile is created
@@ -31,9 +31,10 @@ export const getMessages = (roomId) => (dispatch) => {
       .on('value', (snap) => {
         if (snap.val()) {
           dispatch({
-            type: SET_CURRENT_ROOM,
+            type: SET_MESSAGES,
             payload: {
               messages: snap.val().messages ? snap.val().messages : null,
+              roomId,
             },
           });
           resolve();

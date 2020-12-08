@@ -47,18 +47,18 @@ const TypeArea = (props) => {
   };
 
   return (
-    <form style={{ width: '100%' }} onSubmit={handleSubmit} autocomplete='off'>
+    <form style={{ width: '100%' }} onSubmit={handleSubmit} autoComplete='off'>
       <Col
         xs='1'
         className='my-auto text-center d-inline-block'
         style={{ padding: '0px' }}
       >
-        <Smile style={{ cursor: 'pointer' }} />
+        {/* <Smile style={{ cursor: 'pointer' }} /> */}
       </Col>
       <Col md='9' sm='8' xs='8' className='text-center d-inline-block'>
         <FormGroup style={{ marginBottom: '0px' }}>
           <Input
-            autocomplete='Hi'
+            autoComplete='false'
             type='text'
             name='text'
             id='inputText'
@@ -75,7 +75,7 @@ const TypeArea = (props) => {
         className='my-auto text-center d-inline-block'
         style={{ padding: '0px' }}
       >
-        <Paperclip style={{ cursor: 'pointer' }} />
+        {/* <Paperclip style={{ cursor: 'pointer' }} /> */}
       </Col>
       <Col md='1' sm='2' xs='2' className='my-auto text-center d-inline-block'>
         <button type='submit' style={{ border: 'none' }}>

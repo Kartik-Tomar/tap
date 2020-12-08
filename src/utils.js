@@ -8,3 +8,4 @@ export const rooms = 'rooms';
 export const SET_MY_PROFILE = 'SET_MY_PROFILE';
 export const SET_CURRENT_ROOM = 'SET_CURRENT_ROOM';
 export const SET_CONTACT_LIST = 'SET_CONTACT_LIST';
+export const SET_MESSAGES = 'SET_MESSAGES';

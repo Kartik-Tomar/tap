@@ -15,7 +15,7 @@ import { withRouter } from 'react-router-dom';
 
 import { AuthContext } from '../../firebase/Auth';
 import firebase from '../../firebase/firebase';
-import ProfileIcon from '../../assets/img/man.svg';
+import ProfileModal from '../ProfileModal/ProfileModal';
 import MyProfileIcon from '../../assets/img/profile.svg';
 
 const OnLineHeader = (props) => {
@@ -47,21 +47,7 @@ const OnLineHeader = (props) => {
       <Nav className='mr-auto' navbar>
         {contactData && (
           <NavItem>
-            <div>
-              <img
-                src={contactData.dp ? contactData.dp : ProfileIcon}
-                alt='profile pic'
-                style={{
-                  height: '30px',
-                  width: '30px',
-                  borderRadius: '50%',
-                  objectFit: 'cover',
-                  marginRight: '10px',
-                  marginLeft: '10px',
-                }}
-              />
-              <b>{contactData.name ? contactData.name : 'Random User'}</b>
-            </div>
+            <ProfileModal profile={contactData} />
           </NavItem>
         )}
       </Nav>

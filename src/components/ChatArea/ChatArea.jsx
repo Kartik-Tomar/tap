@@ -11,12 +11,14 @@ import TypeArea from '../TypeArea/TypeArea';
 
 import './chat-area.scss';
 
+let scrollNo = 0;
+
 const ChatArea = () => {
   const dispatch = useDispatch();
 
   const currentRoom = useSelector((state) => state.currentRoom);
 
-  const [isLoading, setIsLoading] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (currentRoom.roomId) {
@@ -33,7 +35,13 @@ const ChatArea = () => {
   }, [currentRoom.roomId]);
 
   useEffect(() => {
+    if (scrollNo === 0) scrollToBottom();
+    scrollNo = scrollNo + 1;
+  });
+
+  useEffect(() => {
     scrollToBottom();
+    scrollNo = 0;
   }, [currentRoom.messages]);
 
   const getMessageSendBy = (from) => {
@@ -49,7 +57,12 @@ const ChatArea = () => {
   };
 
   return (
-    <Container fluid style={{ marginTop: '75px', marginBottom: '75px' }}>
+    <Container
+      fluid
+      style={{ paddingTop: '75px', paddingBottom: '75px', height: '100vh' }}
+      id='ContainerElementID'
+      className='overflow-auto scroll-bar'
+    >
       {isLoading ? (
         <Row className='text-center no-room'>
           <Col>
@@ -73,11 +86,7 @@ const ChatArea = () => {
       ) : (
         <Row>
           <Col xs='12'>
-            <ul
-              className='chat-list overflow-auto scroll-bar'
-              id='ContainerElementID'
-              style={{ height: '79vh' }}
-            >
+            <ul className='chat-list'>
               {Object.keys(currentRoom.messages).map((keyName, i) => (
                 <Message
                   by={getMessageSendBy(currentRoom.messages[keyName].from)}

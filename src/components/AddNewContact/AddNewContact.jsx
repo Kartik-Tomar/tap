@@ -41,6 +41,7 @@ const AddNewContact = () => {
           color='primary'
           style={{ width: '100%' }}
           onClick={toggle}
+          disabled
         >
           <UserPlus className='mr-2 add-icon' />
           <span style={{ color: '#d3d3d3', background: 'none' }}>
