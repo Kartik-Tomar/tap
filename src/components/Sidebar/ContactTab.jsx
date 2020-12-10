@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Bell } from 'react-feather';
 
 import { AuthContext } from '../../firebase/Auth';
+import { getProfile } from '../../utils';
 import { SET_CURRENT_ROOM } from '../../utils';
 import ProfileIcon from '../../assets/img/man.svg';
-import { getProfile } from '../../redux/actions/profile';
+// import { getProfile } from '../../redux/actions/profile';
 
 const ContactTab = (props) => {
   const { currentUser } = useContext(AuthContext);
@@ -16,9 +17,7 @@ const ContactTab = (props) => {
 
   useEffect(() => {
     if (props.userId) {
-      dispatch(getProfile(props.userId))
-        .then((res) => setUserData(res))
-        .catch(() => setUserData(null));
+      getProfile(props.userId, setUserData);
     } else {
       setUserData(null);
     }
@@ -30,7 +29,6 @@ const ContactTab = (props) => {
       let data = {
         roomId: props.roomData.roomId,
         contactId: props.userId,
-        contactData: userData,
         from,
       };
       dispatch({ type: SET_CURRENT_ROOM, payload: data });
@@ -54,7 +52,10 @@ const ContactTab = (props) => {
         alt='profile pic'
         className='profile-pic'
       />
-      <b className='profile-name'>{userData ? userData.name : 'Random User'}</b>
+      <b className='profile-name'>
+        {userData && userData.status && <span className='dot mr-2'></span>}
+        {userData ? userData.name : 'Random User'}
+      </b>
       {props.roomData.notification && (
         <button className='notification-bell'>
           <Bell style={{ padding: '3px' }} />

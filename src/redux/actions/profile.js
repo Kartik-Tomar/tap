@@ -60,6 +60,7 @@ const creatProfile = (data) => (dispatch) => {
 
 // Profile subscribed so that any time there is a change in profile it is automatically updated here
 const subscribeToProfile = (id) => (dispatch) => {
+  firebase.database().ref(`${users}/${id}/profile`).update({ status: true });
   firebase
     .database()
     .ref()
@@ -72,6 +73,12 @@ const subscribeToProfile = (id) => (dispatch) => {
           dp: snap.val().dp,
         };
         dispatch({ type: SET_MY_PROFILE, payload: setData });
+        // Change Status of user if they disconnects for db / close the window
+        firebase
+          .database()
+          .ref(`${users}/${id}/profile`)
+          .onDisconnect()
+          .update({ status: false });
       }
     });
 };
@@ -127,27 +134,5 @@ export const updateURL = (data) => (dispatch) => {
         .then(() => resolve())
         .catch((err) => reject(err));
     });
-  });
-};
-
-// Get Profile
-export const getProfile = (id) => (dispatch) => {
-  return new Promise((resolve, reject) => {
-    firebase
-      .database()
-      .ref()
-      .child(`${users}/${id}/profile`)
-      .once('value', (snap) => {
-        if (snap.val()) {
-          let setData = {
-            name: snap.val().name,
-            email: snap.val().email,
-            dp: snap.val().dp,
-          };
-          resolve(setData);
-        } else {
-          reject('user data not available');
-        }
-      });
   });
 };

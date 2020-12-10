@@ -28,7 +28,10 @@ const ProfileModal = (props) => {
             marginLeft: '10px',
           }}
         />
-        <b>{props.profile.name ? props.profile.name : 'Random User'} </b>
+        <b>
+          {props.profile.status && <span className='dot mr-2'></span>}
+          {props.profile.name ? props.profile.name : 'Random User'}
+        </b>
         {typing && <div class='typing-loader my-auto ml-2'></div>}
       </Row>
       <Modal isOpen={modal} toggle={toggle}>

@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Col, FormGroup, Input } from 'reactstrap';
-import debounce from 'lodash/debounce';
 import { Smile, Paperclip } from 'react-feather';
 import { toast } from 'react-toastify';
 import moment from 'moment';

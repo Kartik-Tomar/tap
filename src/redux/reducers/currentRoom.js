@@ -3,7 +3,6 @@ import { SET_CURRENT_ROOM, SET_MESSAGES, SET_TYPING } from '../../utils';
 const INITIAL_STATE = {
   roomId: null,
   contactId: null,
-  contactData: null,
   from: null,
   typing: null,
   messages: null,

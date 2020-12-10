@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Menu, X } from 'react-feather';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   Navbar,
   Nav,
@@ -14,17 +14,23 @@ import {
 import { withRouter } from 'react-router-dom';
 
 import { AuthContext } from '../../firebase/Auth';
+import { getProfile } from '../../utils';
 import firebase from '../../firebase/firebase';
 import ProfileModal from '../ProfileModal/ProfileModal';
 import MyProfileIcon from '../../assets/img/profile.svg';
+import { changeTypingStatus } from '../../redux/actions/rooms';
 
 const OnLineHeader = (props) => {
   const { currentUser } = useContext(AuthContext);
+  const dispatch = useDispatch();
   const myProfile = useSelector((state) => state.myProfile);
-  const contactData = useSelector((state) => state.currentRoom.contactData);
   const contactId = useSelector((state) => state.currentRoom.contactId);
+  const typing = useSelector((state) => state.currentRoom.typing);
+  const from = useSelector((state) => state.currentRoom.from);
+  const roomId = useSelector((state) => state.currentRoom.roomId);
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
     if (currentUser === null) {
@@ -35,8 +41,15 @@ const OnLineHeader = (props) => {
   useEffect(() => {
     if (contactId) {
       props.setSideBar(false);
+      getProfile(contactId, setUserData);
     }
   }, [contactId]);
+
+  useEffect(() => {
+    if (userData)
+      if (!userData.status && typing)
+        dispatch(changeTypingStatus(false, from, roomId));
+  }, [userData, typing]);
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
   return (
@@ -49,9 +62,9 @@ const OnLineHeader = (props) => {
         {props.sideBar ? <X /> : <Menu />}
       </span>
       <Nav className='mr-auto' navbar>
-        {contactData && (
+        {userData && (
           <NavItem>
-            <ProfileModal profile={contactData} />
+            <ProfileModal profile={userData} />
           </NavItem>
         )}
       </Nav>
