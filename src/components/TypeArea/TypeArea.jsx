@@ -1,13 +1,14 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Col, FormGroup, Input } from 'reactstrap';
+import debounce from 'lodash/debounce';
 import { Smile, Paperclip } from 'react-feather';
 import { toast } from 'react-toastify';
 import moment from 'moment';
 
 import { AuthContext } from '../../firebase/Auth';
 import SendIcon from '../../assets/img/send-mail.svg';
-import { sendMessage } from '../../redux/actions/rooms';
+import { sendMessage, changeTypingStatus } from '../../redux/actions/rooms';
 
 const inputStyle = {
   background: 'none',
@@ -45,6 +46,15 @@ const TypeArea = (props) => {
       );
     }
   };
+
+  useEffect(() => {
+    let user = props.from === 'user1' ? 'user2' : 'user1';
+    if (text.length > 0) {
+      dispatch(changeTypingStatus(true, user, props.roomId));
+    } else {
+      dispatch(changeTypingStatus(false, user, props.roomId));
+    }
+  }, [text]);
 
   document.onkeydown = function () {
     if (window.event.keyCode === '13') {

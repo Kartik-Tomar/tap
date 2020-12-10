@@ -1,5 +1,12 @@
 import firebase from '../../firebase/firebase';
-import { adminId, rooms, SET_MESSAGES } from '../../utils';
+import {
+  adminId,
+  rooms,
+  messages,
+  typing,
+  SET_MESSAGES,
+  SET_TYPING,
+} from '../../utils';
 import { addContactToUser, notSeenMessage } from './contacts';
 
 // Create default room with admin after the profile is created
@@ -21,19 +28,43 @@ export const creatRoomWithAdmin = (data) => (dispatch) => {
   });
 };
 
-// Get Current room messages
+// Get Current room messages add typing
 export const getMessages = (roomId) => (dispatch) => {
   return new Promise((resolve, reject) => {
     firebase
       .database()
       .ref()
-      .child(`${rooms}/${roomId}`)
+      .child(`${rooms}/${roomId}/${messages}`)
       .on('value', (snap) => {
         if (snap.val()) {
           dispatch({
             type: SET_MESSAGES,
             payload: {
-              messages: snap.val().messages ? snap.val().messages : null,
+              messages: snap.val() ? snap.val() : null,
+              roomId,
+            },
+          });
+          resolve();
+        } else {
+          reject('No Room Found');
+        }
+      });
+  });
+};
+
+// Get Current room  typing
+export const getTyping = (roomId) => (dispatch) => {
+  return new Promise((resolve, reject) => {
+    firebase
+      .database()
+      .ref()
+      .child(`${rooms}/${roomId}/${typing}`)
+      .on('value', (snap) => {
+        if (snap.val()) {
+          dispatch({
+            type: SET_TYPING,
+            payload: {
+              typing: snap.val() ? snap.val() : null,
               roomId,
             },
           });
@@ -51,7 +82,7 @@ export const sendMessage = (data, roomId, data2) => (dispatch) => {
     firebase
       .database()
       .ref()
-      .child(`${rooms}/${roomId}/messages`)
+      .child(`${rooms}/${roomId}/${messages}`)
       .push(data)
       .then(() => {
         if (data2) {
@@ -59,6 +90,19 @@ export const sendMessage = (data, roomId, data2) => (dispatch) => {
         }
         resolve();
       })
+      .catch((err) => reject(err));
+  });
+};
+
+// Change Typing status
+export const changeTypingStatus = (status, user, roomId) => (dispatch) => {
+  return new Promise((resolve, reject) => {
+    firebase
+      .database()
+      .ref()
+      .child(`${rooms}/${roomId}/${typing}/`)
+      .update({ [user]: status })
+      .then(() => resolve())
       .catch((err) => reject(err));
   });
 };

@@ -7,9 +7,10 @@ import { animateScroll } from 'react-scroll';
 import { AuthContext } from '../../firebase/Auth';
 import Message from './Message';
 import Loader from '../../assets/loader/Loader';
-import { getMessages } from '../../redux/actions/rooms';
+import { getMessages, getTyping } from '../../redux/actions/rooms';
 import { seenMessage } from '../../redux/actions/contacts';
 import TypeArea from '../TypeArea/TypeArea';
+import Typing from './Typing';
 
 import './chat-area.scss';
 
@@ -42,6 +43,7 @@ const ChatArea = () => {
           });
           setIsLoading(false);
         });
+      dispatch(getTyping(currentRoom.roomId));
     }
   }, [currentRoom.roomId]);
 
@@ -113,6 +115,7 @@ const ChatArea = () => {
                   key={keyName}
                 />
               ))}
+              {currentRoom.typing && <Typing />}
             </ul>
           </Col>
         </Row>
