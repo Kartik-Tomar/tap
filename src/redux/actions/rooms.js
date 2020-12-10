@@ -7,6 +7,7 @@ import {
   SET_MESSAGES,
   SET_TYPING,
 } from '../../utils';
+import moment from 'moment';
 import { addContactToUser, notSeenMessage } from './contacts';
 
 // Create default room with admin after the profile is created
@@ -15,11 +16,18 @@ export const creatRoomWithAdmin = (data) => (dispatch) => {
     let user1 = data.uid > adminId ? data.uid : adminId;
     let user2 = data.uid > adminId ? adminId : data.uid;
     let roomId = user1 + user2;
+    let messages = [
+      {
+        from: adminId === user1 ? 'user1' : 'user2',
+        sendAt: moment().unix(),
+        text: 'Welcome to TAP, Start messaging right away',
+      },
+    ];
     firebase
       .database()
       .ref()
       .child(`${rooms}/${roomId}`)
-      .update({ user1, user2 })
+      .update({ user1, user2, messages })
       .then(() => {
         resolve();
         dispatch(addContactToUser({ user1, user2, roomId }));

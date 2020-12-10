@@ -32,7 +32,7 @@ const ProfileModal = (props) => {
           {props.profile.status && <span className='dot mr-2'></span>}
           {props.profile.name ? props.profile.name : 'Random User'}
         </b>
-        {typing && <div class='typing-loader my-auto ml-2'></div>}
+        {typing && <div className='typing-loader my-auto ml-2'></div>}
       </Row>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>User Profile</ModalHeader>

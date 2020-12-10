@@ -57,7 +57,7 @@ const OnLineHeader = (props) => {
       <span
         onClick={() => props.setSideBar(!props.sideBar)}
         className='arrow'
-        style={{ cursor: 'pointer' }}
+        style={{ cursor: 'pointer', width: '37px' }}
       >
         {props.sideBar ? <X /> : <Menu />}
       </span>
