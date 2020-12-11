@@ -60,7 +60,6 @@ const creatProfile = (data) => (dispatch) => {
 
 // Profile subscribed so that any time there is a change in profile it is automatically updated here
 const subscribeToProfile = (id) => (dispatch) => {
-  firebase.database().ref(`${users}/${id}/profile`).update({ status: true });
   firebase
     .database()
     .ref()
@@ -73,6 +72,12 @@ const subscribeToProfile = (id) => (dispatch) => {
           dp: snap.val().dp,
         };
         dispatch({ type: SET_MY_PROFILE, payload: setData });
+        // Change Status of user if they connects to the db
+        if (!snap.val().status)
+          firebase
+            .database()
+            .ref(`${users}/${id}/profile`)
+            .update({ status: true });
         // Change Status of user if they disconnects for db / close the window
         firebase
           .database()

@@ -8,6 +8,7 @@ export const users = 'users';
 export const rooms = 'rooms';
 export const messages = 'messages';
 export const typing = 'typing';
+export const profile = 'profile';
 
 // Actions
 export const SET_MY_PROFILE = 'SET_MY_PROFILE';
@@ -16,7 +17,7 @@ export const SET_CONTACT_LIST = 'SET_CONTACT_LIST';
 export const SET_MESSAGES = 'SET_MESSAGES';
 export const SET_TYPING = 'SET_TYPING';
 
-// Functions
+// Functions - get profile and subscribe to the changes
 export const getProfile = (id, setUserData) => {
   return new Promise((resolve, reject) => {
     firebase
@@ -38,5 +39,21 @@ export const getProfile = (id, setUserData) => {
           reject('user data not available');
         }
       });
+  });
+};
+
+// Functions - logout and change the status
+export const logout = (id) => {
+  return new Promise((resolve, reject) => {
+    firebase
+      .database()
+      .ref()
+      .child(`${users}/${id}/${profile}`)
+      .update({ status: false })
+      .then(() => {
+        firebase.auth().signOut();
+        return resolve();
+      })
+      .catch((err) => reject(err));
   });
 };

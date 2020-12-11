@@ -12,10 +12,10 @@ import {
   DropdownItem,
 } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import { AuthContext } from '../../firebase/Auth';
-import { getProfile } from '../../utils';
-import firebase from '../../firebase/firebase';
+import { getProfile, logout } from '../../utils';
 import ProfileModal from '../ProfileModal/ProfileModal';
 import MyProfileIcon from '../../assets/img/profile.svg';
 import { changeTypingStatus } from '../../redux/actions/rooms';
@@ -50,6 +50,18 @@ const OnLineHeader = (props) => {
       if (!userData.status && typing)
         dispatch(changeTypingStatus(false, from, roomId));
   }, [userData, typing]);
+
+  const logoutFunc = () => {
+    if (currentUser) {
+      logout(currentUser.uid).catch((err) =>
+        toast.error(err + '', {
+          autoClose: false,
+        })
+      );
+    } else {
+      props.history.push('/');
+    }
+  };
 
   const toggle = () => setDropdownOpen((prevState) => !prevState);
   return (
@@ -88,9 +100,7 @@ const OnLineHeader = (props) => {
               My Profile
             </DropdownItem>
             <DropdownItem divider />
-            <DropdownItem onClick={() => firebase.auth().signOut()}>
-              Logout
-            </DropdownItem>
+            <DropdownItem onClick={logoutFunc}>Logout</DropdownItem>
           </DropdownMenu>
         </Dropdown>
       </NavbarText>
