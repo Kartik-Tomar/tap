@@ -7,7 +7,11 @@ import { animateScroll } from 'react-scroll';
 import { AuthContext } from '../../firebase/Auth';
 import Message from './Message';
 import Loader from '../../assets/loader/Loader';
-import { getMessages, getTyping } from '../../redux/actions/rooms';
+import {
+  getMessages,
+  getTyping,
+  changeTypingStatus,
+} from '../../redux/actions/rooms';
 import { seenMessage } from '../../redux/actions/contacts';
 import TypeArea from '../TypeArea/TypeArea';
 import Typing from './Typing';
@@ -23,6 +27,18 @@ const ChatArea = () => {
   const currentRoom = useSelector((state) => state.currentRoom);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [currentRoomLocal, setCurrentRoomLocal] = useState(null);
+  const [typing, setTyping] = useState(null);
+
+  useEffect(() => {
+    if (currentRoomLocal && currentRoomLocal.roomId) {
+      if (currentRoomLocal.roomId !== currentRoom.roomId) {
+        let user = currentRoomLocal.from === 'user1' ? 'user2' : 'user1';
+        dispatch(changeTypingStatus(false, user, currentRoomLocal.roomId));
+      }
+    }
+    setCurrentRoomLocal(currentRoom);
+  }, [currentRoom]);
 
   useEffect(() => {
     if (currentRoom.roomId) {
