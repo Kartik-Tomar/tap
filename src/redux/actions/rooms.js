@@ -1,26 +1,19 @@
 import firebase from '../../firebase/firebase';
-import {
-  adminId,
-  rooms,
-  messages,
-  typing,
-  SET_MESSAGES,
-  SET_TYPING,
-} from '../../utils';
+import { rooms, messages, typing, SET_MESSAGES, SET_TYPING } from '../../utils';
 import moment from 'moment';
 import { addContactToUser, notSeenMessage } from './contacts';
 
 // Create default room with admin after the profile is created
-export const creatRoomWithAdmin = (data) => (dispatch) => {
+export const creatRoom = (data) => (dispatch) => {
   return new Promise((resolve, reject) => {
-    let user1 = data.uid > adminId ? data.uid : adminId;
-    let user2 = data.uid > adminId ? adminId : data.uid;
+    let user1 = data.myId > data.id ? data.myId : data.id;
+    let user2 = data.myId > data.id ? data.id : data.myId;
     let roomId = user1 + user2;
     let messages = [
       {
-        from: adminId === user1 ? 'user1' : 'user2',
+        from: data.from === user1 ? 'user1' : 'user2',
         sendAt: moment().unix(),
-        text: 'Welcome to TAP, Start messaging right away',
+        text: data.text,
       },
     ];
     firebase

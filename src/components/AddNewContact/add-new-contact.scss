@@ -1,4 +1,5 @@
 .search-input {
+  width: 80%;
   background: none;
   border: none;
   border-bottom: 2px solid #b9b9b9;
@@ -6,4 +7,16 @@
   box-shadow: none;
   outline: none;
   color: inherit;
+}
+
+.dps {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.alert > button > span {
+  background: none;
+  color: #721c24;
 }
