@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Row, Col, FormGroup, Input } from 'reactstrap';
-import { Smile, Paperclip, X } from 'react-feather';
+import { Smile, X } from 'react-feather';
 import { toast } from 'react-toastify';
 import moment from 'moment';
 
@@ -85,7 +85,7 @@ const TypeArea = (props) => {
             />
           )}
         </Col>
-        <Col md='9' sm='8' xs='8' className='text-center d-inline-block'>
+        <Col md='10' sm='9' xs='9' className='text-center d-inline-block'>
           <FormGroup style={{ marginBottom: '0px' }}>
             <Input
               autoComplete='false'
@@ -100,13 +100,13 @@ const TypeArea = (props) => {
             />
           </FormGroup>
         </Col>
-        <Col
+        {/* <Col
           xs='1'
           className='my-auto text-center d-inline-block'
           style={{ padding: '0px' }}
         >
           <Paperclip style={{ cursor: 'pointer' }} />
-        </Col>
+        </Col> */}
         <Col
           md='1'
           sm='2'

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col } from 'reactstrap';
-import Picker, { SKIN_TONE_MEDIUM_DARK } from 'emoji-picker-react';
+import Picker, { SKIN_TONE_LIGHT } from 'emoji-picker-react';
 
 import './emoji.scss';
 
@@ -13,7 +13,7 @@ const Emoji = (props) => {
       <Picker
         onEmojiClick={addEmojiToText}
         disableAutoFocus={true}
-        skinTone={SKIN_TONE_MEDIUM_DARK}
+        skinTone={SKIN_TONE_LIGHT}
         groupNames={{ smileys_people: 'PEOPLE' }}
       />
     </Col>
